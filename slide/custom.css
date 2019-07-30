@@ -1,5 +1,5 @@
 section {
-    background-color: navy;
+    background-color: #030;
     color: #fff;
 }
 
@@ -13,11 +13,11 @@ article h3,
 article h4,
 article strong {
     font-weight: bold;
-    color: navy;
+    color: #030;
 }
 
 article a {
-    color: #88f;
+    color: #6a6;
 }
 
 section h1 {
@@ -35,5 +35,5 @@ section h4 span {
 }
 
 code {
-    background-color: #eef;
+    background-color: #efe;
 }
