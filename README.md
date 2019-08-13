@@ -6,11 +6,20 @@
 
 ## なぜいまNext.js?
 - CLでいま導入されていることが多いのは圧倒的にNuxt.js。Nuxt.jsの方が後発で多機能。
+    - 「next.js」で検索しても[ほとんどnuxtの情報が出てくる](https://www.google.com/search?q=next.js)ので調べるときは気をつけて！
 - **TypeScriptとの相性が圧倒的によい** という話に尽きる。型の恩恵を受けたければVueよりReactだし、NuxtよりNext。
 - 先日の[Next.js 9のリリース](https://nextjs.org/blog/next-9)で、Nuxt.jsで評判が良かった機能の導入や、TypeScript導入のサポートが進み、実戦投入しやすくなった。
 
 ## 試したいときは？
-- [getting started](https://nextjs.org/learn/basics/getting-started)
+- [getting started](https://nextjs.org/learn/basics/getting-started) ※なぜか読むのにログインが必要
+
+```
+$ mkdir hello-next && cd hello-next
+$ npm init -y
+$ npm install --save react react-dom next
+$ mkdir pages && touch pages/index.tsx
+```
+
 - 必要なものをだいたいそろえたボイラープレートを作ったのでこちらも使ってみてね
     - [https://github.com/fnobi/hinagata-next](https://github.com/fnobi/hinagata-next)
 
@@ -28,13 +37,16 @@
     - ビルドして.nextファイルを吐き出してからexportする必要がある（Nuxtと違ってコマンド一発じゃない）ところに注意
 - デフォルトでは、 `pages` ディレクトリ以下に置いたコンポーネントが、ディレクトリ構成を保ったままhtmlとして吐き出される
     - コンポーネントの初期状態が、ちゃんとHTMLとして現れるので、SEO的にもばっちり
-- `next.config.js`で`exportTrailingSlash`というオプションをオンにすると、ファイルが２つ分つくられる（about.html, about/index.html)
+- `next.config.js`で`exportTrailingSlash`というオプションをオンにすると、ファイルが２つ分つくられる
+    - ex) about.html, about/index.html
 - SSR = APIから値を取ってきた結果を出力するHTMLに組み込みたい場合、コンポーネントに`getInitialProps`というstaticメソッドを追加する（Next.js専用のReact Component拡張仕様）
     - ここにAPIからデータを取ってくる感じの非同期処理を書いて、returnするとrender処理の際propsとして渡される
 - ディレクトリ構成とは違う形で出力したいとき・`/post/:id` みたいな動的ルーティングを組み込みたいときは、`exportPathMap`という処理を`next.config.js`に書く。
     - 動的変わるパス名に応じてコンテンツを出し分けたいというときは、これまたコンポーネント側に`getInitialProps`を書く必要あり。要はexport時点でのrenderに必要な情報はぜんぶ`getInitialProps`で取ってくる必要がある。
 - もろもろのサンプル
     - [https://github.com/fnobi/hinagata-next/pull/13/files](https://github.com/fnobi/hinagata-next/pull/13/files)
+- 印象的には、何がSSR時に実行されて、何がフロントエンドで実行されるのかの分離はnuxtより分かりやすい
+    - SSRで実行されるのはgetInitalPropsと初回レンダリング(※useEffect処理は含まれない)
 
 ## SPA開発環境によく突っ込むものをそろえていく
 - TypeScript
@@ -55,7 +67,7 @@
 - まあ順当にreduxを入れるのが正攻法
     - Next側で、繋ぎ込み用のヘルパーnpmは用意してくれているものの、導入時はそれなりにコード書く必要がある
 
-- ただ自分は正攻法のredux入れるのに無駄な工程が多すぎてキレてしまったのでstoreを独自実装するという暴挙に出た
+- ただ自分は正攻法のredux入れるのに**無駄な工程が多すぎてキレてしまった**のでstoreを独自実装するという暴挙に出た
     - 実際reduxはもともとjsで動かす前提で設計されたものなので、TypeScriptで組む場合はここまで細かい規約いらなくない…？そうおもわない…？
     - lib: [https://github.com/fnobi/hinagata-next/blob/master/src/lib/TypeRegi.ts](https://github.com/fnobi/hinagata-next/blob/master/src/lib/TypeRegi.ts)
     - store定義: [https://github.com/fnobi/hinagata-next/blob/master/src/store/sample.ts](https://github.com/fnobi/hinagata-next/blob/master/src/store/sample.ts)
