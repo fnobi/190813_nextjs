@@ -17,6 +17,13 @@
 $ mkdir hello-next && cd hello-next
 $ npm init -y
 $ npm install --save react react-dom next
+$ mkdir pages && touch pages/index.jsx
+```
+
+- typescriptでいきたいときは後半こんな感じ
+
+```
+$ npm install --save-dev typescript @types/react @types/node
 $ mkdir pages && touch pages/index.tsx
 ```
 
@@ -52,10 +59,9 @@ $ mkdir pages && touch pages/index.tsx
 - TypeScript
     - pages以下に置くコンポーネントの拡張子をtsxにする。以上。
 - css
-    - emotionというフレームワークがおすすめ（いえもんが書いてるの見て知った）
+    - [emotion](https://github.com/emotion-js/emotion)というフレームワークがおすすめ（いえもんが書いてるの見て知った）
         - cssをオブジェクト形式で書いて、React DOMに紐付けていく
         - cssについても型補完が効くので、typoが減るぞ！
-        - [https://github.com/emotion-js/emotion](https://github.com/emotion-js/emotion)
 - lint
     - TypeScriptでもeslintでOK
     - 個人的には、webpack設定を拡張してsave時にlint & fixしてしまうのがおすすめ
